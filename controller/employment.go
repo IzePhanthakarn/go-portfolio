@@ -13,6 +13,45 @@ import (
 
 type Employment struct{}
 
+func (p Employment) FindAll(ctx *gin.Context) {
+	categoryId := ctx.Query("categoryId")
+	search := ctx.Query("search")
+	status := ctx.Query("status")
+
+	var employments []model.Employment
+	query := db.Conn.Preload("Category")
+	if categoryId != "" {
+		query = query.Where("category_id = ?", categoryId)
+	}
+	if search != "" {
+		query = query.Where("sku = ? OR name LIKE ?", search, "%"+search+"%")
+
+	}
+	if status != "" {
+		query = query.Where("status = ?", status)
+	}
+	query.Find(&employments)
+
+	var result []dto.EmploymentResponse
+	for _, employment := range employments {
+		result = append(result, dto.EmploymentResponse{
+			ID:          employment.ID,
+			PlanName:    employment.PlanName,
+			Darkmode:    employment.Darkmode,
+			MultiLang:   employment.MultiLang,
+			Name:        employment.Name,
+			Email:       employment.Email,
+			Phone:       employment.Phone,
+			Price:       employment.Price,
+			PriceTH:     employment.PriceTH,
+			Status:      employment.Status,
+			Description: employment.Description,
+		})
+	}
+
+	ctx.JSON(http.StatusOK, result)
+}
+
 func (p Employment) Create(ctx *gin.Context) {
 	fmt.Println("0")
 	var form dto.EmploymentRequest
@@ -40,7 +79,7 @@ func (p Employment) Create(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusCreated, dto.CreateOrUpdateEmploymentResponse{
+	ctx.JSON(http.StatusCreated, dto.EmploymentResponse{
 		ID:          employment.ID,
 		PlanName:    employment.PlanName,
 		Darkmode:    employment.Darkmode,
