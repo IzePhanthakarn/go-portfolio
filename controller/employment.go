@@ -29,7 +29,6 @@ func (p Employment) FindAll(ctx *gin.Context) {
 	}
 	if email != "" {
 		query = query.Where("email = ? OR email LIKE ?", email, "%"+email+"%")
-
 	}
 	if plan != "" {
 		query = query.Where("plan_name = ?", plan)

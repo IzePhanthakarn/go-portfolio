@@ -14,4 +14,12 @@ func serveRoutes(r *gin.Engine) {
 	employmentGroup.POST("", employmentController.Create)
 	employmentGroup.PATCH("/:id", employmentController.Update)
 	employmentGroup.DELETE("/:id", employmentController.Delete)
+
+	testimonialController := controller.Testimonial{}
+	testimonialGroup := r.Group("/testimonials")
+	testimonialGroup.GET("", testimonialController.FindAll)
+	testimonialGroup.GET("/:id", testimonialController.FindOne)
+	testimonialGroup.POST("", testimonialController.Create)
+	testimonialGroup.PATCH("/:id", testimonialController.Update)
+	testimonialGroup.DELETE("/:id", testimonialController.Delete)
 }

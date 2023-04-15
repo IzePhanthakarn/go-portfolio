@@ -26,7 +26,7 @@ func main() {
 	os.MkdirAll("uploads/testimonials", 0755)
 	r := gin.Default()
 	r.Use(cors.New(corsConfig))
-	r.Static("/testimonials", "./uploads")
+	r.Static("/uploads", "./testimonials")
 	serveRoutes(r)
 	r.Run(":" + os.Getenv("PORT"))
 }
