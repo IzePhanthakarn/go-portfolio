@@ -6,7 +6,7 @@ import (
 
 	"github.com/IzePhanthakarn/go-portfolio/model"
 
-	"gorm.io/driver/mysql"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 )
@@ -16,7 +16,7 @@ var Conn *gorm.DB
 func ConnectDB() {
 	dsn := os.Getenv("DATABASE_DSN")
 	db, err := gorm.Open(
-		mysql.Open(dsn),
+		postgres.Open(dsn),
 		&gorm.Config{Logger: logger.Default.LogMode(logger.Info)},
 	)
 	if err != nil {
