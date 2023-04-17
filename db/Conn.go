@@ -29,5 +29,6 @@ func ConnectDB() {
 func Migrate() {
 	Conn.AutoMigrate(
 		&model.Employment{},
+		&model.Testimonial{},
 	)
 }

@@ -9,6 +9,7 @@ type EmploymentRequest struct {
 	Phone       string  `form:"phone" binding:"required"`
 	Price       float64 `form:"price" binding:"required"`
 	PriceTH     uint    `form:"priceTH" binding:"required"`
+	Status      uint    `form:"status"`
 	Description string  `form:"description"`
 }
 
