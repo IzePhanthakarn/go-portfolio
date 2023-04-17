@@ -1,16 +1,15 @@
 package dto
 
 import (
-	"mime/multipart"
 	"time"
 )
 
 type TestimonialRequest struct {
-	Name         string                `form:"name" binding:"required"`
-	Relationship string                `form:"relationship" binding:"required"`
-	Image        *multipart.FileHeader `form:"image" binding:"required"`
-	Description  string                `form:"description" binding:"required"`
-	Score        float64               `form:"score" binding:"required"`
+	Name         string `form:"name" binding:"required"`
+	Relationship string `form:"relationship" binding:"required"`
+	// Image        *multipart.FileHeader `form:"image" binding:"required"`
+	Description string  `form:"description" binding:"required"`
+	Score       float64 `form:"score" binding:"required"`
 }
 
 type CreateOrUpdateTestimonialResponse struct {
