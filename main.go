@@ -11,7 +11,9 @@ import (
 )
 
 func main() {
-	if os.Getenv("APP_ENV") != "production" {
+	if os.Getenv("APP_ENV") == "production" {
+		gin.SetMode(gin.ReleaseMode)
+	} else {
 		if err := godotenv.Load(); err != nil {
 			log.Fatal("Error loading .env file")
 		}
@@ -28,5 +30,9 @@ func main() {
 	r.Use(cors.New(corsConfig))
 	r.Static("/uploads", "./uploads")
 	serveRoutes(r)
+	port := os.Getenv("PORT")
+	if port != "" {
+		port = "5000"
+	}
 	r.Run(":" + os.Getenv("PORT"))
 }
